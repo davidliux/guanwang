@@ -60,8 +60,9 @@ export default function Footer() {
                 <MapPin className="text-gray-400 mt-0.5" size={16} />
                 <div>
                   <p className="text-gray-400 text-sm">
-                    Toronto, Canada<br />
-                    New York, USA
+                    4711 Yonge Street, Unit 10055<br />
+                    North York, M2N 6K8<br />
+                    Canada
                   </p>
                 </div>
               </div>

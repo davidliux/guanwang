@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 5001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 5001",
     "lint": "next lint"
   },
   "dependencies": {
-    "clsx": "^2.1.0",
+    "@fontsource/urbanist": "^5.2.6",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.294.0",
     "next": "14.0.4",
     "react": "^18",
+    "react-countup": "^6.5.3",
     "react-dom": "^18",
-    "tailwind-merge": "^2.2.0"
+    "react-intersection-observer": "^9.16.0",
+    "resend": "^6.0.3",
+    "tailwind-merge": "^2.2.0",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS 变量 */
+@layer base {
+  :root {
+    --color-primary: #081F4A;
+    --color-primary-light: #0D3C91;
+    --color-accent: #F3FF48;
+    --color-accent-hover: #D9E030;
+    --color-dark: #0C0C0C;
+    --gradient-hero: linear-gradient(135deg, #081F4A 0%, #0D3C91 100%);
+    --gradient-dark: linear-gradient(180deg, #0C0C0C 0%, #1A1A1A 100%);
+    --shadow-glow: 0 0 40px rgba(243, 255, 72, 0.3);
+  }
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* 深色主题默认样式 */
+body {
+  background: var(--color-dark);
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+}
+
+/* 文本选择样式 */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-dark);
+}
+
+/* 动画关键帧 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(243, 255, 72, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(243, 255, 72, 0.6);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 工具类 */
+@layer utilities {
+  /* 禁用动画（用于可访问性） */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

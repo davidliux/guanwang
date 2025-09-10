@@ -7,13 +7,25 @@ import ContactSection from '@/components/sections/ContactSection'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
-      <HeroSection />
-      <ServicesSection />
-      <MembershipSection />
-      <CaseStudiesSection />
-      <NetworkSection />
-      <ContactSection />
+    <main className="min-h-screen bg-white">
+      <div id="hero">
+        <HeroSection />
+      </div>
+      <div id="services">
+        <ServicesSection />
+      </div>
+      <div id="membership">
+        <MembershipSection />
+      </div>
+      <div id="case-studies">
+        <CaseStudiesSection />
+      </div>
+      <div id="network">
+        <NetworkSection />
+      </div>
+      <div id="contact">
+        <ContactSection />
+      </div>
     </main>
   )
 }
