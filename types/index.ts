@@ -15,7 +15,11 @@ export interface MembershipTier {
   price: number;
   currency: 'USD' | 'CAD';
   period: string;
+  description?: string;
   features: string[];
+  categorizedFeatures?: {
+    [category: string]: string[];
+  };
   highlighted: boolean;
   savings?: string;
 }
