@@ -1,24 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, Globe } from 'lucide-react';
-import { useContactForm } from '@/hooks/useContactForm';
+import { Mail, MapPin, CheckCircle, Globe, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ContactSection() {
-  const { formData, setFormData, isSubmitting, submitStatus, handleSubmit } = useContactForm();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   return (
     <section id="contact" className="py-20 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,184 +23,137 @@ export default function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-naecla-blue focus:ring-1 focus:ring-naecla-blue transition-colors"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-naecla-blue focus:ring-1 focus:ring-naecla-blue transition-colors"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
+        {/* Centered Direct Contact Information */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="bg-white rounded-2xl shadow-xl p-10">
+            <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">Direct Contact</h3>
 
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-naecla-blue focus:ring-1 focus:ring-naecla-blue transition-colors"
-                  placeholder="Your Company"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-naecla-blue focus:ring-1 focus:ring-naecla-blue transition-colors resize-none"
-                  placeholder="Tell us about your logistics needs..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting || submitStatus === 'success'}
-                className={`w-full py-4 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
-                  submitStatus === 'success'
-                    ? 'bg-green-600 text-white' 
-                    : submitStatus === 'error'
-                    ? 'bg-red-600 text-white'
-                    : 'bg-naecla-blue hover:bg-naecla-blue-dark text-white'
-                } ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
+            {/* Contact Methods Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+              {/* Email */}
+              <motion.div
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                {submitStatus === 'success' ? (
-                  <>
-                    <CheckCircle size={20} />
-                    Message Sent Successfully!
-                  </>
-                ) : submitStatus === 'error' ? (
-                  'Error - Please Try Again'
-                ) : isSubmitting ? (
-                  'Sending...'
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Send Message
-                  </>
-                )}
-              </button>
-            </form>
-          </motion.div>
-
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Direct Contact</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-naecla-blue/10 rounded-lg">
-                    <Mail className="text-naecla-blue" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-gray-900 font-semibold mb-1">Email Us</h4>
-                    <a href="mailto:info@naecla.com" className="text-gray-600 hover:text-naecla-blue">
-                      info@naecla.com
-                    </a>
-                  </div>
+                <div className="p-4 bg-naecla-blue/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <Mail className="text-naecla-blue" size={32} />
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-naecla-blue/10 rounded-lg">
-                    <Globe className="text-naecla-blue" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-gray-900 font-semibold mb-1">Website</h4>
-                    <a href="https://www.naecla.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-naecla-blue">
-                      www.naecla.com
-                    </a>
-                  </div>
+                <h4 className="text-gray-900 font-semibold mb-3 text-lg">Email Us</h4>
+                <div className="space-y-1">
+                  <a href="mailto:info@naecla.com" className="block text-sm text-gray-600 hover:text-naecla-blue transition-colors">
+                    info@naecla.com
+                  </a>
+                  <a href="mailto:sales@naecla.com" className="block text-sm text-gray-600 hover:text-naecla-blue transition-colors">
+                    sales@naecla.com
+                  </a>
                 </div>
+              </motion.div>
 
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-naecla-blue/10 rounded-lg">
-                    <MapPin className="text-naecla-blue" size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-gray-900 font-semibold mb-1">Head Office</h4>
-                    <p className="text-gray-600">
-                      4711 Yonge Street, Unit 10055<br />
-                      North York, ON M2N 6K8<br />
-                      Canada
-                    </p>
-                  </div>
+              {/* Website */}
+              <motion.div
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="p-4 bg-naecla-blue/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <Globe className="text-naecla-blue" size={32} />
                 </div>
+                <h4 className="text-gray-900 font-semibold mb-3 text-lg">Website</h4>
+                <a href="https://www.naecla.com" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-naecla-blue transition-colors">
+                  www.naecla.com
+                </a>
+              </motion.div>
+
+              {/* Office */}
+              <motion.div
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="p-4 bg-naecla-blue/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <MapPin className="text-naecla-blue" size={32} />
+                </div>
+                <h4 className="text-gray-900 font-semibold mb-3 text-lg">Head Office</h4>
+                <p className="text-sm text-gray-600">
+                  4711 Yonge Street, Unit 10055<br />
+                  North York, ON M2N 6K8<br />
+                  Canada
+                </p>
+              </motion.div>
+
+              {/* WeChat */}
+              <motion.div
+                className="text-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="p-4 bg-green-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <MessageCircle className="text-green-600" size={32} />
+                </div>
+                <h4 className="text-gray-900 font-semibold mb-3 text-lg">WeChat</h4>
+                <p className="text-sm text-gray-600 mb-2">Scan to Connect</p>
+              </motion.div>
+            </div>
+
+            {/* WeChat QR Code Section */}
+            <div className="border-t border-gray-200 pt-8 mb-10">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                <div className="text-center">
+                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Connect with Us on WeChat</h4>
+                  <p className="text-gray-600 mb-6 max-w-md">
+                    Scan the QR code to add us on WeChat for instant communication and real-time logistics updates
+                  </p>
+                </div>
+                <motion.div
+                  className="bg-white p-4 rounded-xl shadow-lg border-2 border-green-500/20"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Image
+                    src="/wechat-qr.png"
+                    alt="NAECLA WeChat QR Code"
+                    width={200}
+                    height={200}
+                    className="rounded-lg"
+                  />
+                  <p className="text-center text-sm text-gray-500 mt-3">WeChat: NAECLA Official</p>
+                </motion.div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-naecla-blue/5 to-naecla-blue-light/5 rounded-lg p-6 border border-naecla-blue/20">
-              <h4 className="text-gray-900 font-semibold mb-3">Why Choose NAECLA?</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
+            {/* Why Choose NAECLA */}
+            <div className="bg-gradient-to-br from-naecla-blue/5 to-naecla-blue-light/5 rounded-xl p-8 border border-naecla-blue/20">
+              <h4 className="text-xl font-bold text-gray-900 text-center mb-6">Why Choose NAECLA?</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={20} />
                   <span>Strategic warehouse network across North America</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={20} />
                   <span>Licensed customs brokers in Canada & USA</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={20} />
                   <span>Amazon FBA/FBM compliance expertise</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={16} />
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="text-green-600 mt-0.5 flex-shrink-0" size={20} />
                   <span>24/7 support for Pro & Elite members</span>
-                </li>
-              </ul>
-              <p className="text-naecla-blue font-semibold text-sm mt-4">
+                </div>
+              </div>
+              <p className="text-naecla-blue font-bold text-lg text-center mt-6">
                 Join today and get up to 5,268% ROI!
               </p>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
